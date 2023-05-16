@@ -29,4 +29,13 @@ export class AdminController {
       _handleError(error);
     }
   }
+  @Get("/all-users-transactions")
+  async allUsersTranaction(@Request() req: any) {
+    try {
+      const data = await this.adminService.getAllTransaction();
+      return { data, status: HttpStatus.OK };
+    } catch (error) {
+      _handleError(error);
+    }
+  }
 }

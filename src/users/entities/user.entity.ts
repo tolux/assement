@@ -23,7 +23,7 @@ export class UserEntity extends BaseEntity {
   @OneToOne(() => WalletEntity, (wallet) => wallet.user, {
     cascade: true,
   })
-  // @JoinColumn()
+  @JoinColumn()
   wallet: WalletEntity;
   // @OneToMany(() => Movie, (movies) => movies.user)
   // movies: Movie[];

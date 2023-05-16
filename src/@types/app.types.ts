@@ -18,6 +18,11 @@ enum ERoles {
   ADMIN = "admin",
 }
 
-export type { Tuser, ISerializedUser, ISerializedAdmin };
+type TQuery = {
+  limit?: number;
+  page?: number;
+};
+
+export type { Tuser, ISerializedUser, ISerializedAdmin, TQuery };
 
 export { ERoles };
