@@ -8,7 +8,6 @@ import { AuthGuard } from "./guard/auth.guard";
 import { APP_GUARD } from "@nestjs/core";
 import { AuthModule } from "./auth/auth.module";
 import { SeedsModule } from "./db/seeding/seeds/seeds.module";
-import { WalletModule } from './wallet/wallet.module';
 
 @Module({
   imports: [
@@ -16,7 +15,6 @@ import { WalletModule } from './wallet/wallet.module';
     TypeOrmModule.forRoot(dataSourceOptions),
     SeedsModule,
     AuthModule,
-    WalletModule,
   ],
   controllers: [AppController],
   providers: [AppService, { provide: APP_GUARD, useClass: AuthGuard }],

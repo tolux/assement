@@ -6,7 +6,7 @@ import { TransactionEntity } from "./transaction.entity";
 
 @Entity()
 export class WalletEntity extends BaseEntity {
-  @Column()
+  @Column({ default: 0 })
   balance: number;
 
   @OneToOne(() => UserEntity, (user) => user.wallet)

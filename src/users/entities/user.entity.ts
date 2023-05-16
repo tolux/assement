@@ -1,7 +1,7 @@
 import { BaseEntity } from "src/helpers/db.helpers";
-import { Column, Entity, OneToMany, OneToOne } from "typeorm";
+import { Column, Entity, JoinColumn, OneToMany, OneToOne } from "typeorm";
 import { ERoles } from "src/@types/app.types";
-import { WalletEntity } from "src/wallet/entities/wallet.entity";
+import { WalletEntity } from "./wallet.entity";
 
 @Entity()
 export class UserEntity extends BaseEntity {
@@ -23,8 +23,8 @@ export class UserEntity extends BaseEntity {
   @OneToOne(() => WalletEntity, (wallet) => wallet.user, {
     cascade: true,
   })
+  // @JoinColumn()
   wallet: WalletEntity;
-
   // @OneToMany(() => Movie, (movies) => movies.user)
   // movies: Movie[];
 }

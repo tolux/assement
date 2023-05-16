@@ -4,13 +4,16 @@ import { createUserDto } from "src/auth/dto/createUser.dto";
 import { authHelpers } from "src/helpers/auth.helpers";
 import { Repository } from "typeorm";
 import { UserEntity } from "./entities/user.entity";
-import { ISerializedUser, Tuser } from "src/@types/app.types";
+import { ISerializedUser } from "src/@types/app.types";
+import { WalletEntity } from "./entities/wallet.entity";
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(UserEntity)
-    private userRepository: Repository<UserEntity>
+    private userRepository: Repository<UserEntity>,
+    @InjectRepository(WalletEntity)
+    private walletRepository: Repository<WalletEntity>
   ) {}
 
   async allUsers(): Promise<ISerializedUser[]> {
@@ -32,6 +35,17 @@ export class UsersService {
     return await this.userRepository.findOne({ where: { email } });
   }
 
+  async createWallet(id) {
+    const user = await this.userRepository.find({
+      where: { id },
+      relations: ["wallet"],
+    });
+    if (!user) {
+      throw new HttpException("invalid user", HttpStatus.FORBIDDEN);
+    }
+    const wallet = await this.walletRepository.save({});
+    await this.userRepository.update({ id }, { wallet: { id: wallet.id } });
+  }
   async createUser(data: createUserDto): Promise<boolean> {
     const user = await this.findUserByEmail(data.email);
     if (user) {
@@ -46,6 +60,7 @@ export class UsersService {
       ...data,
       password,
     });
+
     return true;
   }
 

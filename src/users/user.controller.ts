@@ -17,6 +17,17 @@ import { UpdateUserProfileDto } from "./dto/updateUserProfile.dto";
 export class UserController {
   constructor(private usersService: UsersService) {}
 
+  @Put("/wallet")
+  async createWallet(@Request() req: any) {
+    try {
+      const id = req["user"];
+      const data = await this.usersService.createWallet(id);
+      return { data, status: HttpStatus.OK, message: "wallet updated" };
+    } catch (error) {
+      _handleError(error);
+    }
+  }
+
   @Put("/update")
   async updateUserProfile(
     @Body() body: UpdateUserProfileDto,
