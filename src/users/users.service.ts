@@ -90,7 +90,13 @@ export class UsersService {
     const ref = `${user.name.slice(0, 3)}${date.getTime()}`;
     date.setSeconds(date.getSeconds() + 15);
     const expiration = date.getTime().toString();
-    const transactionData = { expiration, wallet: user.wallet, amount, ref };
+    const transactionData = {
+      expiration,
+      wallet: user.wallet,
+      amount,
+      ref,
+      user,
+    };
     return await this.transactionRepository.save(transactionData);
   }
 

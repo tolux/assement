@@ -16,4 +16,7 @@ export class TransactionEntity extends BaseEntity {
 
   @ManyToOne(() => WalletEntity, (wallet) => wallet.transaction)
   wallet: WalletEntity;
+
+  @ManyToOne(() => UserEntity, (user) => user.transaction)
+  user: UserEntity;
 }

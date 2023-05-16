@@ -4,6 +4,8 @@ import { AdminEntity } from "./entities/admin.entity";
 import { Repository } from "typeorm";
 import { UsersService } from "src/users/users.service";
 import { TransactionEntity } from "src/users/entities/transaction.entity";
+import { dataSourceOptions } from "src/db/data-source";
+import { UserEntity } from "src/users/entities/user.entity";
 
 @Injectable()
 export class AdminService {
@@ -12,6 +14,8 @@ export class AdminService {
     private transactionRepository: Repository<TransactionEntity>,
     @InjectRepository(AdminEntity)
     private adminRepository: Repository<AdminEntity>,
+    @InjectRepository(UserEntity)
+    private userRepository: Repository<UserEntity>,
     private userService: UsersService
   ) {}
 
@@ -23,8 +27,8 @@ export class AdminService {
   }
 
   async getAllTransaction() {
-    return await this.transactionRepository.find({
-      relations: ["wallet"],
+    return await this.userRepository.find({
+      relations: ["transaction"],
     });
   }
 
